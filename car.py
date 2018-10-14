@@ -55,7 +55,7 @@ class Car(object):
     FASTEST = 100
 
     def __init__(self, carName: str):
-        file = open("driver_log.txt")
+        file = open("driver_log.txt", "w")
         # ================================================================
         # ULTRASONIC MODULE DRIVER INITIALIZE
         # ================================================================

@@ -36,12 +36,10 @@ class myCar(object):
         while True:
             distance = self.car.distance_detector.get_distance()
             distance_graph.append(distance)
-
-            if distance <= 20:
-                self.car.accelerator.go_forward(Car.FASTER)
-
+            print(distance)
+            
             # checking distance is lower than 10cm
-            if distance <= 10:
+            if distance <= 15:
                 if before_distance - distance > 10 or distance == -1:
                     continue
                 
@@ -54,10 +52,11 @@ class myCar(object):
         # stop car & record execution time
         self.car.accelerator.stop()
         end_time = time.time() - start_time
+        time.sleep(0.8)
 
         # go back during end_time
         self.car.accelerator.go_backward(Car.FASTEST)
-        time.sleep(end_time - 0.25)
+        time.sleep(end_time - 0.2)
         self.car.accelerator.stop()
 
         # write distance graph
@@ -70,8 +69,18 @@ class myCar(object):
 
     # write distance binary log file
     def record_distance_log(self, distance_log: list):
+        try :
+            with open("distance_log.dat", 'rb') as log_file:
+                distance_list = [pickle.load(log_file)]
+        
+        except EOFError as e:
+            with open("distance_log.dat", 'wb') as log_file:
+                pickle.dump(distance_log, log_file)
+                return
+                
         with open("distance_log.dat", 'wb') as log_file:
-            pickle.dump(distance_log, log_file)
+            distance_list.append(distance_log)
+            pickle.dump(distance_list, log_file)
         
 if __name__ == "__main__":
     try:
