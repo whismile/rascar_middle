@@ -1,6 +1,6 @@
 # File based database.
 
-turning_offset = -15
+turning_offset = -12
 forward_A = 0
 forward_B = 1
 debug = 0
