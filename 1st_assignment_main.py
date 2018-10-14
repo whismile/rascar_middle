@@ -69,14 +69,8 @@ class myCar(object):
 
     # write distance binary log file
     def record_distance_log(self, distance_log: list):
-        try :
-            with open("distance_log.dat", 'rb') as log_file:
-                distance_list = [pickle.load(log_file)]
-        
-        except EOFError as e:
-            with open("distance_log.dat", 'wb') as log_file:
-                pickle.dump(distance_log, log_file)
-                return
+        with open("distance_log.dat", 'rb') as log_file:
+            distance_list = pickle.load(log_file)
                 
         with open("distance_log.dat", 'wb') as log_file:
             distance_list.append(distance_log)
