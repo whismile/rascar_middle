@@ -66,6 +66,9 @@ class myCar(object):
     def read_distance_log(self) -> object:
         with open("distance_log.dat", "rb") as log_file:
             distance_trace = pickle.load(log_file)
+            
+            for log in distance_trace:
+                print(log)
     
     def record_distance_log(self, distance_log: list):
         with open("distance_log.dat", "rb") as log_file:
