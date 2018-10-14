@@ -63,21 +63,22 @@ class myCar(object):
         self.record_distance_log(distance_graph)
 
     # read distance binary log file
-    def read_distance_log(self):
-        with open("distance_log.dat", "rb") as log_file:
-            distance_trace = pickle.load(log_file)
-
+    def read_distance_log(self) -> object:
+        file = open("distance_log.dat", "rb")
+        return file
+    
     # write distance binary log file
     def record_distance_log(self, distance_log: list):
-        try :
-            with open("distance_log.dat", 'rb') as log_file:
-                distance_list = [pickle.load(log_file)]
+        try:
+            read_file = read_distance_log()
         
-        except EOFError as e:
-            with open("distance_log.dat", 'wb') as log_file:
-                pickle.dump(distance_log, log_file)
-                return
-                
+        except:
+            print("FILE_ERROR")
+        
+        distance_list = pickle.load(read_file)
+        read_file.close()
+        
+        # write distance log
         with open("distance_log.dat", 'wb') as log_file:
             distance_list.append(distance_log)
             pickle.dump(distance_list, log_file)
